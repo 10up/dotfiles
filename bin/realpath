@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if [ $# -gt 0 ]; then
+	dir=$1
+else
+	dir=$(pwd)
+fi
+
+echo $(readlink -m $dir)
