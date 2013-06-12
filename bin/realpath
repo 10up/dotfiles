@@ -6,4 +6,23 @@ else
 	dir=$(pwd)
 fi
 
-echo $(readlink -m $dir)
+case $OSTYPE in
+darwin*)
+	realpath=$(php -r "echo realpath( '$dir' );")
+	if [ -z $realpath ]; then
+		endpath=$(basename $dir)
+		dir=$(dirname $dir)
+		while [ ! -e "$dir" ]; do
+			endpath="$(basename $dir)/$endpath"
+			dir=$(dirname $dir)
+		done
+		realpath=$(php -r "echo realpath( '$dir' );")
+		realpath="$realpath/$endpath"
+	fi
+	echo "$realpath"
+	;;
+*)
+# Includes linux-gnu
+	echo $(readlink -m $dir)
+	;;
+esac
