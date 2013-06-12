@@ -1,0 +1,2 @@
+export TENUP_DOTFILES=1
+PATH="$HOME/bin:$PATH"

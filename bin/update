@@ -1,0 +1,10 @@
+#!/bin/sh
+
+binfiles="realpath"
+
+echo "Linking custom commands to home bin directory..."
+for binfile in $binfiles; do
+	echo "Linking $binfile..."
+	ln -fs "$HOME/dotfiles/bin/$binfile" "$HOME/bin/$binfile"
+done
+

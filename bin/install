@@ -1,1 +1,25 @@
 #!/bin/sh
+
+case $(basename $SHELL) in
+
+	bash)
+		profile_file=$HOME/.bash_profile
+		;;
+	*)
+		profile_file=$HOME/.profile
+		;;
+esac
+
+if [ ! -z $TENUP_DOTFILES ]; then
+	echo "10up dotfiles is already installed"
+else
+	echo "Adding 10up dotfiles to $(basename $profile_file) ..."
+	echo '' >> $profile_file
+	echo '[[ -s "$HOME/dotfiles/profile" ]] && source "$HOME/dotfiles/profile"' >> $profile_file
+fi
+
+if [ ! -e "$HOME/bin" ]; then
+	mkdir "$HOME/bin"
+fi
+
+sh -c "$HOME/dotfiles/bin/update"
